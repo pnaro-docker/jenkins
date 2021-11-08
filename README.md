@@ -6,7 +6,7 @@ JENKINS_ADMIN='pnaro' -e \
 JENKINS_PASSWORD='pnaro' \
 JENKINS_INIT_JOB='seed' \
 JENKINS_URL='http:\\localhost:8080'
--v /Users/pnaro/workspace/gitlab/jenkins/casc_configs:/var/jenkins_home/casc_configs \
--v/Users/pnaro/workspace/gitlab/jenkins/jobs:/usr/share/jenkins/ref/jobs \
+-v casc_configs:/var/jenkins_home/casc_configs \
+-v jobs:/usr/share/jenkins/ref/jobs \
 pnaro/jenkins
 
