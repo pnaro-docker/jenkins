@@ -1,3 +1,7 @@
+#Jenkins base image
+https://hub.docker.com/r/jenkins/jenkins
+
+#Commands
 docker build -t pnaro/jenkins .
 
 docker run \
