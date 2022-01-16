@@ -15,6 +15,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+        
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: 17
+          distribution: jdk
 
       - name: Login to docker
         uses: docker/login-action@v1
@@ -22,11 +28,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-      - name: build the image
-        run: |
-          docker buildx build \
-          --tag pnaro/jenkins:2.303.3-lts \
-          --tag pnaro/jenkins \
-          --push \
-          --platform linux/amd64,linux/arm64 \
-          .
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+
+      - name: Gradle Build Action
+        uses: gradle/gradle-build-action@v2.1.0
+        with:
+          arguments: buildAndPublishDockerImage
