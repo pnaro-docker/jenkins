@@ -34,4 +34,4 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.1.0
         with:
-          arguments: buildAndPublishDockerImage
+          arguments: buildAndPublishDockerImage --info
