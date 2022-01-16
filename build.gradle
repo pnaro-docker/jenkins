@@ -1,0 +1,32 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.jenkins-ci.org/public/')
+    }
+
+    maven {
+        url = uri('https://mvnrepository.com/artifact/')
+    }
+
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    compileOnly group: 'org.jenkins-ci.main', name: 'jenkins-core', version: jenkinsCoreVersion
+    compileOnly group: 'org.jenkins-ci.plugins', name: 'job-dsl', version: jenkinsJobDslVersion
+    compileOnly group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-job', version: jenkinsWorkflowJobVersion, ext: 'jar'
+}
+
+task buildAndPublishDockerImage(type: Exec) {
+    commandLine 'docker', 'buildx', 'build',
+            '--build-arg', "JENKINS_IMAGE=${jenkinsImage}",
+            '--tag', "pnaro/jenkins:${jenkinsImage}", '--tag', 'pnaro/jenkins',
+            '--platform', 'linux/amd64,linux/arm64',
+            '-f', 'src/main/resources/Dockerfile', '.'
+}
