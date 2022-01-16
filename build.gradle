@@ -28,5 +28,6 @@ task buildAndPublishDockerImage(type: Exec) {
             '--build-arg', "JENKINS_IMAGE=${jenkinsImage}",
             '--tag', "pnaro/jenkins:${jenkinsImage}", '--tag', 'pnaro/jenkins',
             '--platform', 'linux/amd64,linux/arm64',
+            '--push',
             '-f', 'src/main/resources/Dockerfile', '.'
 }
